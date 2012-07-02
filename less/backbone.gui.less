@@ -1,12 +1,16 @@
+@background: #3b3d44;
+@highlight-color: #484a51;
+@darklight-color: #2a2c33;
+
 .gui {
-	background: #3b3d44;
+	background: @background;
 	border-radius: 3px;
 	border-width: 2px;
 	border-style: solid;
-	border-top-color: #484a51;
-	border-left-color: #484a51;
-	border-right-color: #2a2c33;
-	border-bottom-color: #2a2c33;
+	border-top-color: @highlight-color;
+	border-left-color: @highlight-color;
+	border-right-color: @darklight-color;
+	border-bottom-color: @darklight-color;
 	box-shadow: inset 0 0 55px -15px #000;
 	display: inline-block;
 	padding: 20px;
