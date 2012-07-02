@@ -1,15 +1,32 @@
-var Osc = Backbone.Model.extend({
-  defaults: {
-    frequency: 50,
+var osc = new Backbone.Model({
+    frequency: 440,
     shape: 'sine',
     on: false
-  }
 });
 
-var osc = new Osc();
-
 var view = new Backbone.GUI.View({
-  model: osc
+  
+  model: osc,
+
+  gui: {
+
+  	frequency: {
+  		min: 0,
+  		max: 1000
+  	},
+
+  	shape: {
+  		component: 'Selector',
+  		style: 'dropdown',
+  		options: ['sine', 'saw', 'square']
+  	},
+
+  	on: {
+  		mode: 'hold'
+  	}
+
+  }
+
 });
 
 $('body').append(view.render().el);

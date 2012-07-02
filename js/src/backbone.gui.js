@@ -46,40 +46,56 @@ Backbone.GUI.View = Backbone.View.extend({
 
   template: '<div class="gui"></div>',
 
+  initialize: function(opts) {
+    this.gui = opts.gui;
+    Backbone.View.prototype.initialize.apply(this, arguments);
+  },
+
   render: function() {
       
     var model = this.model,
-      $el = $(this.template);
+      $el = $(this.template),
+      user_opts = this.gui || {};
 
+    // create a component for each attribute
+    // of the model
     _.each(model.attributes, function(attr, key) {
 
       var GUI = Backbone.GUI,
         type = typeof(attr),
-        opts = { model: model, property: key },
+        opts = _.extend({ model: model, property: key }, user_opts[key]),
         view;
 
-      switch (type) {
+      // pass in `component` option to 
+      // bypass component inference
+      if (opts.component) {
+        component = opts.component;
 
-        case 'string':
-          view = new GUI.TextInput(opts);
-          break;
-
-        case 'number':
-          view = new GUI.Slider(_.extend({
-            style: 'horizontal'
-          }, opts));
-          break;
-
-        case 'boolean':
-          view = new GUI.Button(opts);
-          break;
-
+      // if no `component` was declared in this.gui
+      // infer component from type
+      } else {
+        switch (type) {
+          case 'string':
+            component = 'TextInput'
+            break;
+          case 'number':
+            component = 'Slider';
+            break;
+          case 'boolean':
+            component = 'Button';
+            break;
+        }
       }
 
-      $el.append(view.render().el);
+      // set this.gui[key] to `null`
+      // to not render the component
+      if (user_opts[key] !== null) {
+        view = new Backbone.GUI[component](opts);
+        $el.append(view.render().el);
+      } 
 
     });
-
+    
     this.setElement($el);
     return this;
 
