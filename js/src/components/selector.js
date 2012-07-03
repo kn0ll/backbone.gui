@@ -31,10 +31,11 @@ Backbone.GUI = (function(GUI) {
 
 	    var $el = $(this.template),
 	      prop = this.options.property,
-	      cid = this.cid;
+	      cid = this.cid,
+	      $form = $('form', $el);
 
 	    _.each(this.options.options, function(opt) {
-	      $el.append('<div class="input"><input type="radio" name="' + cid + '-' + prop + '" value="' + opt + '" /><span>' + opt + '</span></div>');
+	      $form.append('<div class="input"><input type="radio" name="' + cid + '-' + prop + '" value="' + opt + '" /><span>' + opt + '</span></div>');
 	    });
 
 	    this.setElement($el);

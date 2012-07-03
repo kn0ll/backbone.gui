@@ -39,7 +39,7 @@ Backbone.GUI = (function(GUI) {
 
   GUI.View = Backbone.View.extend({
 
-    template: '<div class="gui"></div>',
+    template: '<div class="bb-gui"></div>',
     row_template: '<div class="row"><% if (key) { %><span class="label"><%= key %></span><% } %></div>',
 
     initialize: function(opts) {
