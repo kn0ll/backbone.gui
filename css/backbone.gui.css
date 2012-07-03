@@ -1,0 +1,210 @@
+.gui {
+  display: inline-block;
+  padding: 20px;
+  font-family: "Myriad Pro";
+  background: #3b3d44;
+  border-top-color: #484a51;
+  border-right-color: #2a2c33;
+  border-bottom-color: #2a2c33;
+  border-left-color: #484a51;
+  border-style: solid;
+  border-width: 2px;
+  border-radius: 3px;
+  box-shadow: inset 0 0 55px -15px #000000;
+}
+
+.button {
+  padding: 8px 10px;
+  color: #515151;
+  text-shadow: 1px 1px 0 #cfcfcf;
+  text-transform: capitalize;
+  cursor: pointer;
+  background: -webkit-linear-gradient(top, #d5d4d4 0%, #8b8b8b 100%);
+  border: 0;
+  border-top: 1px solid #cbc6c6;
+  border-left: 1px solid #cbc6c6;
+  border-radius: 2px;
+  box-shadow: 1px 1px 4px -1px #000000;
+  -webkit-appearance: none;
+}
+
+.button.true {
+  color: #18677e;
+  text-shadow: 1px 1px 0 #80c9de;
+  background: -webkit-linear-gradient(top, #6cc6e0 0%, #3fa4c2 100%);
+  border-top: 1px solid #9ed9eb;
+  border-left: 1px solid #9ed9eb;
+}
+
+.radio .input {
+  display: inline-block;
+  margin-right: 10px;
+  clear: both;
+}
+
+.radio .input input {
+  position: relative;
+  float: left;
+  width: 17px;
+  height: 18px;
+  margin-right: 6px;
+  cursor: pointer;
+  background: #141517;
+  border-radius: 17px;
+  box-shadow: inset 0px 1px 2px -1px #000000, inset 0px -1px 1px -1px #aaaaaa;
+  -webkit-appearance: none;
+}
+
+.radio .input input:checked:after {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  display: block;
+  width: 11px;
+  height: 11px;
+  background: #40a5c3;
+  border-radius: 11px;
+  content: "";
+  box-shadow: inset 1px 0px 2px -1px #ffffff;
+}
+
+.radio .input span {
+  display: block;
+  float: left;
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 26px;
+  color: #f3f3f3;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.slider.vertical,
+.slider.horizontal {
+  position: relative;
+  background: #2d2f34;
+  border: 1px solid #27292d;
+  border-radius: 25px;
+  box-shadow: inset -1px 14px 6px -15px #000000;
+}
+
+.slider.vertical .track,
+.slider.horizontal .track {
+  position: absolute;
+  bottom: 0;
+  left: -1px;
+  background: #40a5c3;
+  border-radius: 25px;
+  box-shadow: inset 1px 0px 2px -1px #ffffff;
+}
+
+.slider.vertical .track .grip,
+.slider.horizontal .track .grip {
+  position: absolute;
+  font-weight: bold;
+  color: #999;
+  text-align: center;
+  cursor: pointer;
+  background: #f9f9f9;
+  border-radius: 25px;
+  box-shadow: 0 0 2px #000;
+  -webkit-user-select: none;
+}
+
+.slider.vertical {
+  top: 1px;
+  left: 0;
+  width: 3px;
+  height: 110px;
+}
+
+.slider.vertical .track {
+  width: 5px;
+}
+
+.slider.vertical .track .grip {
+  top: -8px;
+  left: -1px;
+  width: 7px;
+  height: 16px;
+  font-size: 8px;
+  line-height: 16px;
+}
+
+.slider.vertical .track .grip:after {
+  content: "=";
+}
+
+.slider.horizontal {
+  top: 1px;
+  bottom: auto;
+  left: 0;
+  left: 0;
+  width: 110px;
+  height: 3px;
+}
+
+.slider.horizontal .track {
+  width: auto;
+  height: 5px;
+}
+
+.slider.horizontal .track .grip {
+  top: -1px;
+  right: -8px;
+  left: auto;
+  width: 16px;
+  height: 7px;
+  font-size: 6px;
+  line-height: 9px;
+}
+
+.slider.horizontal .track .grip.grip:after {
+  content: "II";
+}
+
+.slider.round {
+  position: relative;
+  width: 39px;
+  height: 39px;
+  background: #2a2c32;
+  border-radius: 39px;
+  box-shadow: inset 0px 1px 2px -1px #000000, inset 0px -1px 1px -1px #aaaaaa;
+}
+
+.slider.round .grip {
+  position: absolute;
+  top: 5px;
+  left: 7px;
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  background: -webkit-radial-gradient(center, ellipse cover, #dedfe0 0%, #b4b5b8 100%);
+  border-radius: 26px;
+  box-shadow: 0 1px 4px 1px #000;
+}
+
+.slider.round .grip.grip:after {
+  position: absolute;
+  left: 13px;
+  display: block;
+  width: 1px;
+  height: 13px;
+  background: #666;
+  border-right: 1px solid #ddd;
+  content: "";
+}
+
+.text input,
+.text input:focus {
+  width: 50px;
+  padding: 7px;
+  font-weight: bold;
+  color: #f3f3f3;
+  text-shadow: 1px 1px 0 #000;
+  background: #141517;
+  border: none;
+  border-top: 1px solid #0a0a0b;
+  border-bottom: 1px solid #414349;
+  border-radius: 3px;
+  outline: none;
+}
