@@ -1,6 +1,6 @@
-Backbone.GUI.Slider = (function() {
+Backbone.GUI = (function(GUI) {
 
-	var VerticalSlider = Backbone.GUI.Component.extend({
+	GUI.VerticalSlider = Backbone.GUI.Component.extend({
 
 	  options: {
 	    property: false,
@@ -12,10 +12,12 @@ Backbone.GUI.Slider = (function() {
 	    'mousedown .grip': 'startSlide'
 	  },
 
-	  template: '<div class="vertical slider">' +
-	    '<div class="track">' +
-	      '<div class="grip"></div>' +
-	    '</div>' +
+	  template: '<div class="component">' +
+		'<div class="vertical slider">' +
+		  '<div class="track">' +
+		    '<div class="grip"></div>' +
+		  '</div>' +
+		'</div>' +
 	  '</div>',
 
 	  setVal: function(val) {
@@ -75,11 +77,13 @@ Backbone.GUI.Slider = (function() {
 
 	});
 
-	var HorizontalSlider = VerticalSlider.extend({
+	GUI.HorizontalSlider = GUI.VerticalSlider.extend({
 
-	  template: '<div class="horizontal slider">' +
-	    '<div class="track">' +
-	      '<div class="grip"></div>' +
+	  template: '<div class="component">' +
+	    '<div class="horizontal slider">' +
+	      '<div class="track">' +
+	        '<div class="grip"></div>' +
+	      '</div>' +
 	    '</div>' +
 	  '</div>',
 
@@ -125,15 +129,17 @@ Backbone.GUI.Slider = (function() {
 
 	});
 
-	var RoundSlider = VerticalSlider.extend({
+	GUI.Knob = GUI.VerticalSlider.extend({
 
 	  options: _.extend({
 	    rotate: 120
-	  }, VerticalSlider.prototype.options),
+	  }, GUI.VerticalSlider.prototype.options),
 
-	  template: '<div class="round slider">' +
-	    '<div class="track">' +
-	      '<div class="grip"></div>' +
+	  template: '<div class="component">' +
+	    '<div class="round slider">' +
+	      '<div class="track">' +
+	        '<div class="grip"></div>' +
+	      '</div>' +
 	    '</div>' +
 	  '</div>',
 
@@ -155,26 +161,6 @@ Backbone.GUI.Slider = (function() {
 
 	});
 
-	return Backbone.GUI.Component.extend({
+	return GUI;
 
-	  options: {
-	    style: 'horizontal'
-	  },
-
-	  initialize: function(opts) {
-	    var style = this.options.style,
-	      slider;
-	    if (style == 'vertical') {
-	      slider = VerticalSlider;
-	    } else if (style == 'horizontal') {
-	      slider = HorizontalSlider;
-	    } else if (style == 'round') {
-	      slider = RoundSlider
-	    }
-	    _.extend(this, slider.prototype);
-	    slider.prototype.initialize.apply(this, arguments);
-	  }
-
-	});
-
-})();
+})(Backbone.GUI);

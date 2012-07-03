@@ -13,8 +13,39 @@
 	border-bottom-color: @darklight-color;
 	box-shadow: inset 0 0 55px -15px #000;
 	display: inline-block;
-	padding: 20px;
+	padding: 10px;
 	font-family: "Myriad Pro";
+
+  .component {
+    padding: 5px;
+  }
+}
+
+.inset {
+  background: #141517;
+  box-shadow: inset 0px 1px 2px 0px black, inset 0px -1px 1px 0px #9b8e8e;
+  border: none;
+  color: #f3f3f3;
+  -webkit-appearance: none;
+  outline: none;
+  text-shadow: 1px 1px 0 #000;
+  font-size: 12px;
+}
+
+.outset {
+  -webkit-appearance: none;
+  background: -webkit-linear-gradient(top, #d5d4d4 0%, #8b8b8b 100%);
+  text-shadow: 1px 1px 0 #cfcfcf;
+  box-shadow: 1px 1px 4px -1px #000;
+  border-left: 1px solid #cbc6c6;
+  border-top: 1px solid #cbc6c6;
+  color: #515151;
+}
+
+.round (@width) {
+  border-radius: @width;
+  width: @width;
+  height: @width;
 }
 
 @import "components/button.less";

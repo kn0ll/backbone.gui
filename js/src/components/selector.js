@@ -1,6 +1,6 @@
-Backbone.GUI.Selector = (function() {
+Backbone.GUI = (function(GUI) {
 
-	var RadioButtons = Backbone.GUI.Component.extend({
+	GUI.RadioButtons = Backbone.GUI.Component.extend({
 
 	  options: {
 	    property: false,
@@ -11,7 +11,7 @@ Backbone.GUI.Selector = (function() {
 	    'click input': 'changeInput'
 	  },
 
-	  template: '<form class="radio"></form>',
+	  template: '<div class="component"><form class="radio"></form></div>',
 
 	  setVal: function(val) {
 	    this.$inputs.val([val]);
@@ -44,7 +44,7 @@ Backbone.GUI.Selector = (function() {
 
 	});
 
-	var Dropdown = RadioButtons.extend({
+	GUI.Dropdown = GUI.RadioButtons.extend({
 
 	  options: {
 	    property: false,
@@ -55,7 +55,7 @@ Backbone.GUI.Selector = (function() {
 	    'change select': 'changeInput'
 	  },
 
-	  template: '<form class="dropdown"><select></select></form>',
+	  template: '<div class="component"><form class="dropdown"><select></select></form></div>',
 
 	  changeInput: function(e) {
 	    var val = this.$inputs.val();
@@ -85,18 +85,6 @@ Backbone.GUI.Selector = (function() {
 
 	});
 
-	return Backbone.GUI.Component.extend({
+	return GUI;
 
-	  options: {
-	    style: 'radio'
-	  },
-
-	  initialize: function(opts) {
-	    var select = this.options.style == 'radio'? RadioButtons: Dropdown;
-	    _.extend(this, select.prototype);
-	    select.prototype.initialize.apply(this, arguments);
-	  }
-
-	});
-
-})();
+})(Backbone.GUI);

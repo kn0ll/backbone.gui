@@ -1,7 +1,7 @@
 var osc = new Backbone.Model({
-    frequency: 440,
-    shape: 'sine',
-    on: false
+    table: 50,
+    intensity: 50,
+    amp: 50
 });
 
 var view = new Backbone.GUI.View({
@@ -9,22 +9,29 @@ var view = new Backbone.GUI.View({
   model: osc,
 
   gui: {
+  	table: 'Knob',
+    intensity: 'Knob',
+    amp: 'Knob'
+  }
 
-  	frequency: {
-  		min: 0,
-  		max: 1000
-  	},
+});
 
+$('body').append(view.render().el);
+
+var osc = new Backbone.Model({
+    shape: 'sine',
+    name: 'coolguy'
+});
+
+var view = new Backbone.GUI.View({
+  
+  model: osc,
+
+  gui: {
   	shape: {
-  		component: 'Selector',
-  		style: 'dropdown',
-  		options: ['sine', 'saw', 'square']
-  	},
-
-  	on: {
-  		mode: 'hold'
+  		component: 'Dropdown',
+  		options: ['sine', 'triangle', 'square']
   	}
-
   }
 
 });

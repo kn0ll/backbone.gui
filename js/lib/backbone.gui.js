@@ -63,13 +63,24 @@ Backbone.GUI.View = Backbone.View.extend({
 
       var GUI = Backbone.GUI,
         type = typeof(attr),
-        opts = _.extend({ model: model, property: key }, user_opts[key]),
+        cur_opts = user_opts[key],
+        cur_opts_advanced = !_.isString(cur_opts),
+        opts = _.extend({ model: model, property: key }, cur_opts_advanced? cur_opts: {}),
         view;
 
       // pass in `component` option to 
       // bypass component inference
-      if (opts.component) {
-        component = opts.component;
+      if (!cur_opts_advanced || opts.component) {
+
+        // options is a hash of options
+        // who defines a `component`
+        if (cur_opts_advanced) {
+          component = opts.component;
+
+        // options is a string, simply defining component
+        } else {
+          component = cur_opts;
+        }
 
       // if no `component` was declared in this.gui
       // infer component from type
@@ -79,10 +90,10 @@ Backbone.GUI.View = Backbone.View.extend({
             component = 'TextInput'
             break;
           case 'number':
-            component = 'Slider';
+            component = 'HorizontalSlider';
             break;
           case 'boolean':
-            component = 'Button';
+            component = 'TriggerButton';
             break;
         }
       }
@@ -90,6 +101,7 @@ Backbone.GUI.View = Backbone.View.extend({
       // set this.gui[key] to `null`
       // to not render the component
       if (user_opts[key] !== null) {
+        console.log(component, Backbone.GUI);
         view = new Backbone.GUI[component](opts);
         $el.append(view.render().el);
       } 
@@ -101,7 +113,7 @@ Backbone.GUI.View = Backbone.View.extend({
 
   }
 
-});Backbone.GUI.Button = (function() {
+});Backbone.GUI = (function(GUI) {
 
 	// options
 	// `mode` (default: `hold`): `hold` for intantaneous or `trigger` for toggle
@@ -110,7 +122,7 @@ Backbone.GUI.View = Backbone.View.extend({
 	// `property` (optional): a boolean property to set `true` or `false`
 	// `label` (optional): label for the button
 
-	var HoldButton = Backbone.GUI.Component.extend({
+	GUI.HoldButton = Backbone.GUI.Component.extend({
 
 	  options: {
 	    action: false,
@@ -122,7 +134,7 @@ Backbone.GUI.View = Backbone.View.extend({
 	    'mousedown': 'click'
 	  },
 
-	  template: '<input type="button" class="button" />',
+	  template: '<div class="component"><input type="button" class="button" /></div>',
 
 	  setVal: function(val) {
 
@@ -178,13 +190,13 @@ Backbone.GUI.View = Backbone.View.extend({
 
 	});
 
-	var TriggerButton = HoldButton.extend({
+	GUI.TriggerButton = GUI.HoldButton.extend({
 
 	  events: {
 	    'mousedown': 'click'
 	  },
 
-	  template: '<input type="button" class="button" />',
+	  template: '<div class="component"><input type="button" class="button" /><div class="component">',
 
 	  click: function(e) {
 
@@ -215,23 +227,11 @@ Backbone.GUI.View = Backbone.View.extend({
 
 	});
 
-	return Backbone.GUI.Component.extend({
+	return GUI;
 
-	  options: {
-	    mode: 'trigger'
-	  },
+})(Backbone.GUI);Backbone.GUI = (function(GUI) {
 
-	  initialize: function(opts) {
-	    var button = this.options.mode == 'hold'? HoldButton: TriggerButton;
-	    _.extend(this, button.prototype);
-	    button.prototype.initialize.apply(this, arguments);
-	  }
-
-	});
-
-})();Backbone.GUI.Selector = (function() {
-
-	var RadioButtons = Backbone.GUI.Component.extend({
+	GUI.RadioButtons = Backbone.GUI.Component.extend({
 
 	  options: {
 	    property: false,
@@ -242,7 +242,7 @@ Backbone.GUI.View = Backbone.View.extend({
 	    'click input': 'changeInput'
 	  },
 
-	  template: '<form class="radio"></form>',
+	  template: '<div class="component"><form class="radio"></form></div>',
 
 	  setVal: function(val) {
 	    this.$inputs.val([val]);
@@ -275,7 +275,7 @@ Backbone.GUI.View = Backbone.View.extend({
 
 	});
 
-	var Dropdown = RadioButtons.extend({
+	GUI.Dropdown = GUI.RadioButtons.extend({
 
 	  options: {
 	    property: false,
@@ -286,7 +286,7 @@ Backbone.GUI.View = Backbone.View.extend({
 	    'change select': 'changeInput'
 	  },
 
-	  template: '<form class="dropdown"><select></select></form>',
+	  template: '<div class="component"><form class="dropdown"><select></select></form></div>',
 
 	  changeInput: function(e) {
 	    var val = this.$inputs.val();
@@ -316,23 +316,11 @@ Backbone.GUI.View = Backbone.View.extend({
 
 	});
 
-	return Backbone.GUI.Component.extend({
+	return GUI;
 
-	  options: {
-	    style: 'radio'
-	  },
+})(Backbone.GUI);Backbone.GUI = (function(GUI) {
 
-	  initialize: function(opts) {
-	    var select = this.options.style == 'radio'? RadioButtons: Dropdown;
-	    _.extend(this, select.prototype);
-	    select.prototype.initialize.apply(this, arguments);
-	  }
-
-	});
-
-})();Backbone.GUI.Slider = (function() {
-
-	var VerticalSlider = Backbone.GUI.Component.extend({
+	GUI.VerticalSlider = Backbone.GUI.Component.extend({
 
 	  options: {
 	    property: false,
@@ -344,10 +332,12 @@ Backbone.GUI.View = Backbone.View.extend({
 	    'mousedown .grip': 'startSlide'
 	  },
 
-	  template: '<div class="vertical slider">' +
-	    '<div class="track">' +
-	      '<div class="grip"></div>' +
-	    '</div>' +
+	  template: '<div class="component">' +
+		'<div class="vertical slider">' +
+		  '<div class="track">' +
+		    '<div class="grip"></div>' +
+		  '</div>' +
+		'</div>' +
 	  '</div>',
 
 	  setVal: function(val) {
@@ -407,11 +397,13 @@ Backbone.GUI.View = Backbone.View.extend({
 
 	});
 
-	var HorizontalSlider = VerticalSlider.extend({
+	GUI.HorizontalSlider = GUI.VerticalSlider.extend({
 
-	  template: '<div class="horizontal slider">' +
-	    '<div class="track">' +
-	      '<div class="grip"></div>' +
+	  template: '<div class="component">' +
+	    '<div class="horizontal slider">' +
+	      '<div class="track">' +
+	        '<div class="grip"></div>' +
+	      '</div>' +
 	    '</div>' +
 	  '</div>',
 
@@ -457,15 +449,17 @@ Backbone.GUI.View = Backbone.View.extend({
 
 	});
 
-	var RoundSlider = VerticalSlider.extend({
+	GUI.Knob = GUI.VerticalSlider.extend({
 
 	  options: _.extend({
 	    rotate: 120
-	  }, VerticalSlider.prototype.options),
+	  }, GUI.VerticalSlider.prototype.options),
 
-	  template: '<div class="round slider">' +
-	    '<div class="track">' +
-	      '<div class="grip"></div>' +
+	  template: '<div class="component">' +
+	    '<div class="round slider">' +
+	      '<div class="track">' +
+	        '<div class="grip"></div>' +
+	      '</div>' +
 	    '</div>' +
 	  '</div>',
 
@@ -487,31 +481,11 @@ Backbone.GUI.View = Backbone.View.extend({
 
 	});
 
-	return Backbone.GUI.Component.extend({
+	return GUI;
 
-	  options: {
-	    style: 'horizontal'
-	  },
+})(Backbone.GUI);Backbone.GUI = (function(GUI) {
 
-	  initialize: function(opts) {
-	    var style = this.options.style,
-	      slider;
-	    if (style == 'vertical') {
-	      slider = VerticalSlider;
-	    } else if (style == 'horizontal') {
-	      slider = HorizontalSlider;
-	    } else if (style == 'round') {
-	      slider = RoundSlider
-	    }
-	    _.extend(this, slider.prototype);
-	    slider.prototype.initialize.apply(this, arguments);
-	  }
-
-	});
-
-})();Backbone.GUI.TextInput = (function() {
-
-	return Backbone.GUI.Component.extend({
+	GUI.TextInput = Backbone.GUI.Component.extend({
 
 	  options: {
 	    property: false
@@ -521,9 +495,11 @@ Backbone.GUI.View = Backbone.View.extend({
 	    'submit': 'changeInput'
 	  },
 
-	  template: '<form class="text">' +
-	    '<input />' +
-	  '</form>',
+	  template: '<div class="component">' +
+	    '<form class="text">' +
+	      '<input />' +
+	    '</form>' +
+	  '</div>',
 
 	  setVal: function(val) {
 	    this.$input.val(val);
@@ -542,4 +518,6 @@ Backbone.GUI.View = Backbone.View.extend({
 
 	});
 
-})();
+	return GUI;
+
+})(Backbone.GUI);

@@ -3,42 +3,67 @@
   .input {
     clear: both;
     display: inline-block;
-    margin-right: 10px;
+    margin-right: 20px;
 
     input {
       float: left;
       position: relative;
-      background: #141517;
       -webkit-appearance: none;
-      width: 17px;
-      height: 18px;
-      border-radius: 17px;
-      margin-right: 6px;
+      margin-right: 10px;
       cursor: pointer;
-      box-shadow: inset 0px 1px 2px -1px black, inset 0px -1px 1px -1px #aaa;
+      .inset;
+      .round(17px);
 
       &:checked:after {
         display: block;
-        width: 11px;
-        height: 11px;
-        border-radius: 11px;
         background: #40a5c3;
         content: "";
         position: absolute;
-        left: 3px;
+        left: 4px;
         top: 3px;
-        box-shadow: inset 1px 0px 2px -1px #fff;
+        box-shadow: inset 1px 1px 7px 0px #c2dfeb;
+        .round(9px);
       }
     }
 
     span {
       float: left;
-      font-size: 12px;
+      font-size: 14px;
       color: #f3f3f3;
-      font-weight: bold;
       line-height: 26px;
       text-shadow: 1px 1px 0 #000;
       display: block;
     }
+  }
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+
+  select {
+    margin: 0;
+    border-radius: 3px;
+    padding: 7px 31px 9px 10px;
+    position: relative;
+    cursor: pointer;
+    .inset;
+  }
+
+  &:after {
+    content: "▾";
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    display: block;
+    width: 16px;
+    height: 16px;
+    pointer-events: none;
+    font-size: 11px;
+    line-height: 18px;
+    text-align: center;
+    box-shadow: 1px 1px 0 #000;
+    border-radius: 2px;
+    .outset;
   }
 }

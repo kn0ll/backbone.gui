@@ -1,6 +1,6 @@
-Backbone.GUI.TextInput = (function() {
+Backbone.GUI = (function(GUI) {
 
-	return Backbone.GUI.Component.extend({
+	GUI.TextInput = Backbone.GUI.Component.extend({
 
 	  options: {
 	    property: false
@@ -10,9 +10,11 @@ Backbone.GUI.TextInput = (function() {
 	    'submit': 'changeInput'
 	  },
 
-	  template: '<form class="text">' +
-	    '<input />' +
-	  '</form>',
+	  template: '<div class="component">' +
+	    '<form class="text">' +
+	      '<input />' +
+	    '</form>' +
+	  '</div>',
 
 	  setVal: function(val) {
 	    this.$input.val(val);
@@ -31,4 +33,6 @@ Backbone.GUI.TextInput = (function() {
 
 	});
 
-})();
+	return GUI;
+
+})(Backbone.GUI);

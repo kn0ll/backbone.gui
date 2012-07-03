@@ -63,13 +63,24 @@ Backbone.GUI.View = Backbone.View.extend({
 
       var GUI = Backbone.GUI,
         type = typeof(attr),
-        opts = _.extend({ model: model, property: key }, user_opts[key]),
+        cur_opts = user_opts[key],
+        cur_opts_advanced = !_.isString(cur_opts),
+        opts = _.extend({ model: model, property: key }, cur_opts_advanced? cur_opts: {}),
         view;
 
       // pass in `component` option to 
       // bypass component inference
-      if (opts.component) {
-        component = opts.component;
+      if (!cur_opts_advanced || opts.component) {
+
+        // options is a hash of options
+        // who defines a `component`
+        if (cur_opts_advanced) {
+          component = opts.component;
+
+        // options is a string, simply defining component
+        } else {
+          component = cur_opts;
+        }
 
       // if no `component` was declared in this.gui
       // infer component from type
@@ -79,10 +90,10 @@ Backbone.GUI.View = Backbone.View.extend({
             component = 'TextInput'
             break;
           case 'number':
-            component = 'Slider';
+            component = 'HorizontalSlider';
             break;
           case 'boolean':
-            component = 'Button';
+            component = 'TriggerButton';
             break;
         }
       }
@@ -90,6 +101,7 @@ Backbone.GUI.View = Backbone.View.extend({
       // set this.gui[key] to `null`
       // to not render the component
       if (user_opts[key] !== null) {
+        console.log(component, Backbone.GUI);
         view = new Backbone.GUI[component](opts);
         $el.append(view.render().el);
       } 

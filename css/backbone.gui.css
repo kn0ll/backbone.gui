@@ -1,6 +1,6 @@
 .gui {
   display: inline-block;
-  padding: 20px;
+  padding: 10px;
   font-family: "Myriad Pro";
   background: #3b3d44;
   border-top-color: #484a51;
@@ -13,8 +13,34 @@
   box-shadow: inset 0 0 55px -15px #000000;
 }
 
+.gui .component {
+  padding: 5px;
+}
+
+.inset {
+  font-size: 12px;
+  color: #f3f3f3;
+  text-shadow: 1px 1px 0 #000;
+  background: #141517;
+  border: none;
+  outline: none;
+  box-shadow: inset 0px 1px 2px 0px #000000, inset 0px -1px 1px 0px #9b8e8e;
+  -webkit-appearance: none;
+}
+
+.outset {
+  color: #515151;
+  text-shadow: 1px 1px 0 #cfcfcf;
+  background: -webkit-linear-gradient(top, #d5d4d4 0%, #8b8b8b 100%);
+  border-top: 1px solid #cbc6c6;
+  border-left: 1px solid #cbc6c6;
+  box-shadow: 1px 1px 4px -1px #000000;
+  -webkit-appearance: none;
+}
+
 .button {
   padding: 8px 10px;
+  font-size: 14px;
   color: #515151;
   text-shadow: 1px 1px 0 #cfcfcf;
   text-transform: capitalize;
@@ -38,7 +64,7 @@
 
 .radio .input {
   display: inline-block;
-  margin-right: 10px;
+  margin-right: 20px;
   clear: both;
 }
 
@@ -46,36 +72,85 @@
   position: relative;
   float: left;
   width: 17px;
-  height: 18px;
-  margin-right: 6px;
+  height: 17px;
+  margin-right: 10px;
+  font-size: 12px;
+  color: #f3f3f3;
+  text-shadow: 1px 1px 0 #000;
   cursor: pointer;
   background: #141517;
+  border: none;
   border-radius: 17px;
-  box-shadow: inset 0px 1px 2px -1px #000000, inset 0px -1px 1px -1px #aaaaaa;
+  outline: none;
+  box-shadow: inset 0px 1px 2px 0px #000000, inset 0px -1px 1px 0px #9b8e8e;
+  -webkit-appearance: none;
   -webkit-appearance: none;
 }
 
 .radio .input input:checked:after {
   position: absolute;
   top: 3px;
-  left: 3px;
+  left: 4px;
   display: block;
-  width: 11px;
-  height: 11px;
+  width: 9px;
+  height: 9px;
   background: #40a5c3;
-  border-radius: 11px;
+  border-radius: 9px;
   content: "";
-  box-shadow: inset 1px 0px 2px -1px #ffffff;
+  box-shadow: inset 1px 1px 7px 0px #c2dfeb;
 }
 
 .radio .input span {
   display: block;
   float: left;
-  font-size: 12px;
-  font-weight: bold;
+  font-size: 14px;
   line-height: 26px;
   color: #f3f3f3;
   text-shadow: 1px 1px 0 #000;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown select {
+  position: relative;
+  padding: 7px 31px 9px 10px;
+  margin: 0;
+  font-size: 12px;
+  color: #f3f3f3;
+  text-shadow: 1px 1px 0 #000;
+  cursor: pointer;
+  background: #141517;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  box-shadow: inset 0px 1px 2px 0px #000000, inset 0px -1px 1px 0px #9b8e8e;
+  -webkit-appearance: none;
+}
+
+.dropdown:after {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  display: block;
+  width: 16px;
+  height: 16px;
+  font-size: 11px;
+  line-height: 18px;
+  color: #515151;
+  text-align: center;
+  text-shadow: 1px 1px 0 #cfcfcf;
+  background: -webkit-linear-gradient(top, #d5d4d4 0%, #8b8b8b 100%);
+  border-top: 1px solid #cbc6c6;
+  border-left: 1px solid #cbc6c6;
+  border-radius: 2px;
+  content: "▾";
+  box-shadow: 1px 1px 0 #000;
+  box-shadow: 1px 1px 4px -1px #000000;
+  -webkit-appearance: none;
+  pointer-events: none;
 }
 
 .slider.vertical,
@@ -91,10 +166,11 @@
 .slider.horizontal .track {
   position: absolute;
   bottom: 0;
+  bottom: -1px;
   left: -1px;
-  background: #40a5c3;
+  background: -webkit-linear-gradient(-45deg, #68c2dd 0%, #41a6c4 100%);
   border-radius: 25px;
-  box-shadow: inset 1px 0px 2px -1px #ffffff;
+  box-shadow: inset 1px 0px 2px -1px #ffffff, 1px 0px 2px 0px #000000;
 }
 
 .slider.vertical .track .grip,
@@ -104,7 +180,7 @@
   color: #999;
   text-align: center;
   cursor: pointer;
-  background: #f9f9f9;
+  background: -webkit-linear-gradient(-45deg, #fcfcfc 0%, #e4dddd 100%);
   border-radius: 25px;
   box-shadow: 0 0 2px #000;
   -webkit-user-select: none;
@@ -164,47 +240,61 @@
 
 .slider.round {
   position: relative;
-  width: 39px;
-  height: 39px;
-  background: #2a2c32;
-  border-radius: 39px;
-  box-shadow: inset 0px 1px 2px -1px #000000, inset 0px -1px 1px -1px #aaaaaa;
+  width: 45px;
+  height: 45px;
+  font-size: 12px;
+  color: #f3f3f3;
+  text-shadow: 1px 1px 0 #000;
+  background: #141517;
+  border: none;
+  border-radius: 45px;
+  outline: none;
+  box-shadow: inset 0px 1px 2px 0px #000000, inset 0px -1px 1px 0px #9b8e8e;
+  -webkit-appearance: none;
 }
 
 .slider.round .grip {
   position: absolute;
-  top: 5px;
+  top: 6px;
   left: 7px;
-  width: 26px;
-  height: 26px;
+  width: 30px;
+  height: 30px;
+  color: #515151;
+  text-shadow: 1px 1px 0 #cfcfcf;
   cursor: pointer;
-  background: -webkit-radial-gradient(center, ellipse cover, #dedfe0 0%, #b4b5b8 100%);
-  border-radius: 26px;
-  box-shadow: 0 1px 4px 1px #000;
+  background: -webkit-linear-gradient(top, #d5d4d4 0%, #8b8b8b 100%);
+  border-top: 1px solid #cbc6c6;
+  border-left: 1px solid #cbc6c6;
+  border-radius: 30px;
+  box-shadow: 1px 1px 4px -1px #000000;
+  -webkit-appearance: none;
 }
 
-.slider.round .grip.grip:after {
+.slider.round .grip:after {
   position: absolute;
-  left: 13px;
+  top: -5px;
+  left: 9px;
   display: block;
-  width: 1px;
-  height: 13px;
-  background: #666;
-  border-right: 1px solid #ddd;
+  width: 0;
+  height: 0;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid #d5d4d4;
+  border-left: 6px solid transparent;
   content: "";
 }
 
 .text input,
 .text input:focus {
   width: 50px;
-  padding: 7px;
-  font-weight: bold;
+  padding: 7px 10px 9px;
+  font-size: 12px;
   color: #f3f3f3;
+  text-shadow: 1px 1px 0 #000;
   text-shadow: 1px 1px 0 #000;
   background: #141517;
   border: none;
-  border-top: 1px solid #0a0a0b;
-  border-bottom: 1px solid #414349;
   border-radius: 3px;
   outline: none;
+  box-shadow: inset 0px 1px 2px 0px #000000, inset 0px -1px 1px 0px #9b8e8e;
+  -webkit-appearance: none;
 }

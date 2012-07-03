@@ -1,4 +1,4 @@
-Backbone.GUI.Button = (function() {
+Backbone.GUI = (function(GUI) {
 
 	// options
 	// `mode` (default: `hold`): `hold` for intantaneous or `trigger` for toggle
@@ -7,7 +7,7 @@ Backbone.GUI.Button = (function() {
 	// `property` (optional): a boolean property to set `true` or `false`
 	// `label` (optional): label for the button
 
-	var HoldButton = Backbone.GUI.Component.extend({
+	GUI.HoldButton = Backbone.GUI.Component.extend({
 
 	  options: {
 	    action: false,
@@ -19,7 +19,7 @@ Backbone.GUI.Button = (function() {
 	    'mousedown': 'click'
 	  },
 
-	  template: '<input type="button" class="button" />',
+	  template: '<div class="component"><input type="button" class="button" /></div>',
 
 	  setVal: function(val) {
 
@@ -75,13 +75,13 @@ Backbone.GUI.Button = (function() {
 
 	});
 
-	var TriggerButton = HoldButton.extend({
+	GUI.TriggerButton = GUI.HoldButton.extend({
 
 	  events: {
 	    'mousedown': 'click'
 	  },
 
-	  template: '<input type="button" class="button" />',
+	  template: '<div class="component"><input type="button" class="button" /><div class="component">',
 
 	  click: function(e) {
 
@@ -112,18 +112,6 @@ Backbone.GUI.Button = (function() {
 
 	});
 
-	return Backbone.GUI.Component.extend({
+	return GUI;
 
-	  options: {
-	    mode: 'trigger'
-	  },
-
-	  initialize: function(opts) {
-	    var button = this.options.mode == 'hold'? HoldButton: TriggerButton;
-	    _.extend(this, button.prototype);
-	    button.prototype.initialize.apply(this, arguments);
-	  }
-
-	});
-
-})();
+})(Backbone.GUI);
