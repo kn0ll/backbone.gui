@@ -11,7 +11,7 @@ Backbone.GUI = (function(GUI) {
 	    'click input': 'changeInput'
 	  },
 
-	  template: '<div class="component"><form class="radio"></form></div>',
+	  template: '<div class="bb-gui-component"><form class="radio"></form></div>',
 
 	  setVal: function(val) {
 	    this.$inputs.val([val]);
@@ -55,7 +55,7 @@ Backbone.GUI = (function(GUI) {
 	    'change select': 'changeInput'
 	  },
 
-	  template: '<div class="component"><form class="dropdown"><select></select></form></div>',
+	  template: '<div class="bb-gui-component"><form class="dropdown"><select></select></form></div>',
 
 	  changeInput: function(e) {
 	    var val = this.$inputs.val();

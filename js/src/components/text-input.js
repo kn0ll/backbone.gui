@@ -10,7 +10,7 @@ Backbone.GUI = (function(GUI) {
 	    'submit form': 'changeInput'
 	  },
 
-	  template: '<div class="component">' +
+	  template: '<div class="bb-gui-component">' +
 	    '<form class="text">' +
 	      '<input />' +
 	    '</form>' +

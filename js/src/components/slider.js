@@ -12,7 +12,7 @@ Backbone.GUI = (function(GUI) {
 	    'mousedown .grip': 'startSlide'
 	  },
 
-	  template: '<div class="component">' +
+	  template: '<div class="bb-gui-component">' +
 		'<div class="vertical slider">' +
 		  '<div class="track">' +
 		    '<div class="grip"></div>' +
@@ -79,7 +79,7 @@ Backbone.GUI = (function(GUI) {
 
 	GUI.HorizontalSlider = GUI.VerticalSlider.extend({
 
-	  template: '<div class="component">' +
+	  template: '<div class="bb-gui-component">' +
 	    '<div class="horizontal slider">' +
 	      '<div class="track">' +
 	        '<div class="grip"></div>' +
@@ -135,7 +135,7 @@ Backbone.GUI = (function(GUI) {
 	    rotate: 120
 	  }, GUI.VerticalSlider.prototype.options),
 
-	  template: '<div class="component">' +
+	  template: '<div class="bb-gui-component">' +
 	    '<div class="round slider">' +
 	      '<div class="track">' +
 	        '<div class="grip"></div>' +

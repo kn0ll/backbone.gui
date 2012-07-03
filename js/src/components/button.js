@@ -11,7 +11,6 @@ Backbone.GUI = (function(GUI) {
 
 	  options: {
 	    action: false,
-	    property: false,
 	    label: false
 	  },
 
@@ -19,7 +18,7 @@ Backbone.GUI = (function(GUI) {
 	    'mousedown input': 'click'
 	  },
 
-	  template: '<div class="component"><input type="button" class="button" /></div>',
+	  template: '<div class="bb-gui-component"><input type="button" class="button" /></div>',
 
 	  setVal: function(val) {
       	this.$input[val? 'addClass': 'removeClass']('true');
@@ -30,7 +29,6 @@ Backbone.GUI = (function(GUI) {
 	    var model = this.model,
 	      opts = this.options,
 	      prop = opts.property,
-	      mode = opts.mode,
 	      action = opts.action,
 	      method,
 	      interval;
@@ -76,14 +74,13 @@ Backbone.GUI = (function(GUI) {
 	    'mousedown': 'click'
 	  },
 
-	  template: '<div class="component"><input type="button" class="button" /></div>',
+	  template: '<div class="bb-gui-component"><input type="button" class="button" /></div>',
 
 	  click: function(e) {
 
 	    var model = this.model,
 	      opts = this.options,
 	      prop = opts.property,
-	      mode = opts.mode,
 	      action = opts.action,
 	      method,
 	      interval;
