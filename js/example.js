@@ -1,39 +1,33 @@
 var osc = new Backbone.Model({
-    table: 50,
-    intensity: 50,
-    amp: 50
+  shape: 'Sine',
+  gain: 1.5,
+  frequency: 440,
+  on: false
 });
 
-var view = new Backbone.GUI.View({
-  
+var osc_view = new Backbone.GUI.View({
+
   model: osc,
 
   gui: {
-  	table: 'Knob',
-    intensity: 'Knob',
-    amp: 'Knob'
+
+    shape: {
+      component: 'Dropdown',
+      options: ['Sine', 'Square', 'Saw', 'Pulse', 'Triangle', 'WhiteNoise']
+    },
+
+    gain: {
+      min: 0,
+      max: 2
+    },
+
+    frequency: {
+      min: 0,
+      max: 1000
+    }
+
   }
 
 });
 
-$('body').append(view.render().el);
-
-var osc = new Backbone.Model({
-    shape: 'sine',
-    name: 'coolguy'
-});
-
-var view = new Backbone.GUI.View({
-  
-  model: osc,
-
-  gui: {
-  	shape: {
-  		component: 'Dropdown',
-  		options: ['sine', 'triangle', 'square']
-  	}
-  }
-
-});
-
-$('body').append(view.render().el);
+$('body').append(osc_view.render().el);
