@@ -16,22 +16,13 @@ Backbone.GUI = (function(GUI) {
 	  },
 
 	  events: {
-	    'mousedown': 'click'
+	    'mousedown input': 'click'
 	  },
 
 	  template: '<div class="component"><input type="button" class="button" /></div>',
 
 	  setVal: function(val) {
-
-	    var action = this.options.action;
-
-	    if (action) {
-	      this.$el.attr('value', _.isString(action)? action: 'trigger');
-
-	    } else {
-	      this.$el[val? 'addClass': 'removeClass']('true');
-	    }
-
+      	this.$input[val? 'addClass': 'removeClass']('true');
 	  },
 
 	  click: function(e) {
@@ -67,10 +58,14 @@ Backbone.GUI = (function(GUI) {
 
 	  },
 
-	  render: function() {
-	    Backbone.GUI.Component.prototype.render.apply(this, arguments);
-	    this.$el.attr('value', this.options.label || this.options.property || 'Unknown');
-	    return this;
+	  setElement: function($el) {
+	  	var opts = this.options,
+	  		label = opts.label,
+	  		prop = opts.property,
+	  		action = this.options.action;
+	    this.$input = $('input', $el);
+	    this.$input.attr('value', label || prop || (_.isString(action)? action: 'Unknown'));
+	    Backbone.GUI.Component.prototype.setElement.apply(this, arguments);
 	  }
 
 	});
@@ -81,7 +76,7 @@ Backbone.GUI = (function(GUI) {
 	    'mousedown': 'click'
 	  },
 
-	  template: '<div class="component"><input type="button" class="button" /><div class="component">',
+	  template: '<div class="component"><input type="button" class="button" /></div>',
 
 	  click: function(e) {
 

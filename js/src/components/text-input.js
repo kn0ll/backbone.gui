@@ -7,7 +7,7 @@ Backbone.GUI = (function(GUI) {
 	  },
 
 	  events: {
-	    'submit': 'changeInput'
+	    'submit form': 'changeInput'
 	  },
 
 	  template: '<div class="component">' +

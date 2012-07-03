@@ -1,7 +1,9 @@
 backbone.gui
 ===
 
-somewhere in between backbone.ui and dat.gui.
+somewhere in between backbone.ui and dat.gui. simply pass Backbone.GUI.View your model, and optionally some gui parameters, and it will generate controls to modify your model.
+
+the code looks like this:
 
 ```
 var osc = new Backbone.Model({
@@ -38,3 +40,7 @@ var osc_view = new Backbone.GUI.View({
 
 $('body').append(osc_view.render().el);
 ```
+
+it makes a controller like this:
+
+![osc screen](https://github.com/catshirt/backbone.gui/wiki/osc-screen.png)

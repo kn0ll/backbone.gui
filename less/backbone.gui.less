@@ -2,34 +2,19 @@
 @highlight-color: #484a51;
 @darklight-color: #2a2c33;
 
-.gui {
-	background: @background;
-	border-radius: 3px;
-	border-width: 2px;
-	border-style: solid;
-	border-top-color: @highlight-color;
-	border-left-color: @highlight-color;
-	border-right-color: @darklight-color;
-	border-bottom-color: @darklight-color;
-	box-shadow: inset 0 0 55px -15px #000;
-	display: inline-block;
-	padding: 10px;
-	font-family: "Myriad Pro";
-
-  .component {
-    padding: 5px;
-  }
+.light-text {
+  color: #f3f3f3;
+  text-shadow: 1px 1px 0 #000;
+  font-size: 12px;
 }
 
 .inset {
   background: #141517;
   box-shadow: inset 0px 1px 2px 0px black, inset 0px -1px 1px 0px #9b8e8e;
   border: none;
-  color: #f3f3f3;
   -webkit-appearance: none;
   outline: none;
-  text-shadow: 1px 1px 0 #000;
-  font-size: 12px;
+  .light-text;
 }
 
 .outset {
@@ -46,6 +31,40 @@
   border-radius: @width;
   width: @width;
   height: @width;
+}
+
+.gui {
+  background: @background;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: solid;
+  border-top-color: @highlight-color;
+  border-left-color: @highlight-color;
+  border-right-color: @darklight-color;
+  border-bottom-color: @darklight-color;
+  box-shadow: inset 0 0 55px -15px #000;
+  display: inline-block;
+  font-family: "Myriad Pro";
+
+  .row {
+    padding: 10px 15px 15px;
+    border-top: 1px solid @highlight-color;
+    border-bottom: 1px solid @darklight-color;
+
+    .label {
+      .light-text;
+    }
+
+    .component {
+
+      /* buttons, inputs, sliders etc
+         should be 100% wide */
+      input,
+      .slider {
+        width: 100%;
+      }
+    }
+  }
 }
 
 @import "components/button.less";
