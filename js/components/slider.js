@@ -1,5 +1,7 @@
 Backbone.GUI = (function(GUI) {
 
+	// ## Backbone.GUI.VerticalSlider
+	// a vertical slider used to set the value of a number property.
 	GUI.VerticalSlider = Backbone.GUI.Component.extend({
 
 	  options: {
@@ -77,6 +79,8 @@ Backbone.GUI = (function(GUI) {
 
 	});
 
+	// ## Backbone.GUI.HorizontalSlider
+	// a horizontal slider used to set the value of a number property.
 	GUI.HorizontalSlider = GUI.VerticalSlider.extend({
 
 	  template: '<div class="bb-gui-component">' +
@@ -129,6 +133,8 @@ Backbone.GUI = (function(GUI) {
 
 	});
 
+	// ## Backbone.GUI.Knob
+	// a round slider used to set the value of a number property.
 	GUI.Knob = GUI.VerticalSlider.extend({
 
 	  options: _.extend({

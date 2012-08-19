@@ -1,7 +1,11 @@
 Backbone.GUI = (function(GUI) {
 
+  // ## Backbone.GUI.Component
+  // the base class for all Backbone.GUI components.
   GUI.Component = Backbone.View.extend({
 
+    // whenever a component is created, we should
+    // bind all property value changes to this specific component.
     initialize: function(opts) {
 
       Backbone.View.prototype.initialize.apply(this, arguments);
@@ -11,8 +15,6 @@ Backbone.GUI = (function(GUI) {
         model = self.model,
         prop = this.options.property;
 
-      // update the slider position
-      // when the model property changes
       if (model && prop) {
         model.on('change:' + prop, function(model, val) {
           self.setVal(val);
@@ -21,12 +23,18 @@ Backbone.GUI = (function(GUI) {
 
     },
 
+    // whenever the component view renders,
+    // we should set the initial component value based
+    // on the current property value.
     setElement: function() {
       var model = this.model;
       Backbone.View.prototype.setElement.apply(this, arguments);
       this.setVal(model? model.get(this.options.property): 0);
     },
 
+    // setVal is responsible for setting the component view
+    // style based on the property value. override this based
+    // on your type of component.
     setVal: function() {
     },
 
@@ -37,6 +45,9 @@ Backbone.GUI = (function(GUI) {
 
   });
 
+  // ## Backbone.GUI.View
+  // a view which will create a collection of components
+  // by inferring types of all the model's attributes.
   GUI.View = Backbone.View.extend({
 
     template: '<div class="bb-gui"></div>',
@@ -47,6 +58,8 @@ Backbone.GUI = (function(GUI) {
       Backbone.View.prototype.initialize.apply(this, arguments);
     },
 
+    // `render` returns a view created a several subviews;
+    // one subview for each property of the model.
     render: function() {
         
       var model = this.model,

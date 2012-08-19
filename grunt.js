@@ -41,7 +41,7 @@ module.exports = function(grunt) {
           paths: ['less']
         },
         files: {
-          'dist/backbone.gui.css': 'less/backbone.gui.less'
+          'dist/backbone.gui.css': 'less/component.less'
         }
       }
     },

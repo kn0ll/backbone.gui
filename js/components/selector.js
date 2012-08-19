@@ -1,5 +1,7 @@
 Backbone.GUI = (function(GUI) {
 
+	// ## Backbone.GUI.RadioButtons
+	// a radio button set used to set the value of a string property.
 	GUI.RadioButtons = Backbone.GUI.Component.extend({
 
 	  options: {
@@ -45,6 +47,8 @@ Backbone.GUI = (function(GUI) {
 
 	});
 
+	// ## Backbone.GUI.Dropdown
+	// a dropdown menu used to set the value of a string property.
 	GUI.Dropdown = GUI.RadioButtons.extend({
 
 	  options: {

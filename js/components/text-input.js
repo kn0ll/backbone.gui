@@ -1,5 +1,7 @@
 Backbone.GUI = (function(GUI) {
 
+	// ## Backbone.GUI.TextInput
+	// a free form text input used to set the value of a string property.
 	GUI.TextInput = Backbone.GUI.Component.extend({
 
 	  options: {

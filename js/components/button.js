@@ -1,12 +1,8 @@
 Backbone.GUI = (function(GUI) {
 
-	// options
-	// `mode` (default: `hold`): `hold` for intantaneous or `trigger` for toggle
-	// `action` (optional): a function, or string representing a model's action by key
-	//                      triggered *when* true is set if `trigger`, and *while* true is set if `hold`
-	// `property` (optional): a boolean property to set `true` or `false`
-	// `label` (optional): label for the button
-
+	// ## Backbone.GUI.HoldButton
+	// a button used to set the value of a boolean property. a hold button
+	// will only set the value momentarily, while the button is being pressed.
 	GUI.HoldButton = Backbone.GUI.Component.extend({
 
 	  options: {
@@ -24,6 +20,8 @@ Backbone.GUI = (function(GUI) {
       	this.$input[val? 'addClass': 'removeClass']('true');
 	  },
 
+	  // clicking the views primary button
+	  // should set the value appropriately
 	  click: function(e) {
 
 	    var model = this.model,
@@ -68,6 +66,9 @@ Backbone.GUI = (function(GUI) {
 
 	});
 
+	// ## Backbone.GUI.TriggerButton
+	// a button used to set the value of a boolean property. a trigger button
+	// is essentially a toggle- changing the boolean state on each click.
 	GUI.TriggerButton = GUI.HoldButton.extend({
 
 	  events: {
@@ -76,6 +77,8 @@ Backbone.GUI = (function(GUI) {
 
 	  template: '<div class="bb-gui-component"><input type="button" class="button" /></div>',
 
+	  // clicking the views primary button
+	  // should set the value appropriately
 	  click: function(e) {
 
 	    var model = this.model,
