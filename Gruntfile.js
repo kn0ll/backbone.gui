@@ -2,7 +2,6 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-contrib-requirejs');
-  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig({
 
@@ -28,17 +27,10 @@ module.exports = function(grunt) {
           wrap: true
         }
       }
-    },
-
-    watch: {
-      coffee: {
-        files: 'src/**/*.coffee',
-        tasks: ['coffee']
-      }
     }
 
   });
 
-  grunt.registerTask('default', ['coffee', 'requirejs', 'watch']);
+  grunt.registerTask('default', ['coffee', 'requirejs']);
 
 };
