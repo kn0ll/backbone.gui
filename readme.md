@@ -96,3 +96,17 @@ greet_view = new ButtonView
   model: user
   method: 'greet'
 ```
+
+## compiling, developing
+
+a config file is included for Grunt tasks to compile and bundle backbone.gui.
+
+```
+$ grunt coffee
+$ grunt requirejs
+```
+
+## todo
+
+- get requirejs build to properly build while ignoring backbone dependency
+- figure out how to package stand-alone script without need for module loader
