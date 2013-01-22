@@ -11,8 +11,7 @@
     "grunt": "0.4.0rc6",
     "grunt-cli": "0.1.6",
     "grunt-contrib-coffee": "git://github.com/gruntjs/grunt-contrib-coffee.git",
-    "grunt-contrib-requirejs": "0.3.4",
-    "grunt-contrib-watch": "0.1.4"
+    "grunt-contrib-requirejs": "0.3.4"
   },
   "version": "0.0.1"
 }
