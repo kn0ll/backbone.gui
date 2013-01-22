@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Backbone.gui by catshirt</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Backbone.gui</h1>
+        <p>minimal effort ui for your backbone models</p>
+
+        <p class="view"><a href="https://github.com/catshirt/backbone.gui">View the Project on GitHub <small>catshirt/backbone.gui</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/catshirt/backbone.gui/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/catshirt/backbone.gui/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/catshirt/backbone.gui">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>backbone.gui</h1>
+
+<p>backbone.gui is a simple way to create interfaces for your Backbone models. aiming for simplicity, this relies solely on html5 input elements.</p>
+
+<h2>including backbone.gui</h2>
+
+<p>loading backbone.gui relies on requirejs. simply clone backbone.gui into your project repository and create the path in your requirejs config. if you cloned into <code>lib/backbone.gui</code>, it would look something like this:</p>
+
+<pre><code>gui: 'lib/backbone.gui/src/gui'
+</code></pre>
+
+<h2>using components</h2>
+
+<p>gui components are all extended from Backbone views. they all accept a <code>model</code> option, which they will bind user input to. most components have a <code>property</code> option which defines what model property the input should bind to, and many components have an <code>options</code> parameter to define further gui attributes. consider the following model definition for all examples:</p>
+
+<pre><code>define 'user', [
+  'backbone'
+], (Backbone) -&gt;
+
+  User = class extends Backbone.Model
+    defaults:
+      admin: null
+      username: null
+      age: null
+
+    greet: -&gt;
+      console.log 'hello, ', @get('username')
+
+  new User
+    admin: false
+    username: 'nic'
+    age: 24
+</code></pre>
+
+<h3>Text Input</h3>
+
+<p>for strings.</p>
+
+<pre><code>define 'user', [
+  'zepto',
+  'user',
+  'gui/text'
+], ($, user, TextView) -&gt;
+
+  username_view = new TextView
+    model: user
+    property: 'username'
+
+  $ -&gt;
+    $body = $('body')
+    $body.append username_view.render().el
+</code></pre>
+
+<h3>Range Input</h3>
+
+<p>for integers. additionally accepts <code>min</code>, <code>max</code>, and <code>step</code> options for input attributes.</p>
+
+<pre><code>age_view = new RangeView
+  model: user
+  property: 'age'
+  min: 0
+  max: 150
+</code></pre>
+
+<h3>Select Dropdown</h3>
+
+<p>for strings. accepts an <code>options</code> array for possible dropdown values.</p>
+
+<pre><code>username_view = new SelectView
+  model: user
+  property: 'username'
+  options: ['catshirt', 'nic', 'cool-guy-247']
+</code></pre>
+
+<h3>Checkbox Input</h3>
+
+<p>for booleans.</p>
+
+<pre><code>admin_view = new CheckboxView
+  model: user
+  property: 'admin'
+</code></pre>
+
+<h3>Button</h3>
+
+<p>for instance methods. unlike other components, this does not accept a <code>property</code> and instead accepts a <code>method</code>, which is the name of an instance method to trigger.</p>
+
+<pre><code>greet_view = new ButtonView
+  model: user
+  method: 'greet'
+</code></pre>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/catshirt">catshirt</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-37581591-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
