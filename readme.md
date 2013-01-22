@@ -1,194 +1,98 @@
 # backbone.gui
 
-the simplest way to create interfaces for your backbone models. something in between [backbone-ui](http://perka.github.com/backbone-ui/) and [dat.gui](http://workshop.chromeexperiments.com/examples/gui). backbone.gui provides backbone views you can use as sliders, buttons, inputs, etc. to controll your backbone model properties.
+backbone.gui is a simple way to create interfaces for your Backbone models. aiming for simplicity, this relies solely on html5 input elements.
 
-## installation
+## including backbone.gui
 
-backbone.gui, naturally, requires backbone as a dependency. additionally, you'll want to include [backbone.gui.js](https://raw.github.com/catshirt/backbone.gui/master/dist/backbone.gui.js), and optionally [backbone.gui.css](https://raw.github.com/catshirt/backbone.gui/master/dist/backbone.gui.css).
-
-## use
-
-you can use backbone.gui components as you would any other backbone views.
-
-### component
-
-this base component for all backbone.gui views. alone, this view has no render method, and thus does nothing.
-
-- `model` - the model who's properties you'd like to modify
-- `property` - the key of the model's attribute you would like to modify
-
-typically, with some exceptions, every component must be given a `model` and a `property`. other options have a default value unless otherwise noted. all components render following the traditional backbone pattern: calling render returns the itself, allowing you to chain: `component.render().el`. all examples below will use the following model for reference:
+loading backbone.gui relies on requirejs. simply clone backbone.gui into your project repository and create the path in your requirejs config. if you cloned into `lib/backbone.gui`, it would look something like this:
 
 ```
-var example = new Backbone.Model({
-  frequency: 440,
-  shape: 'sine',
-  on: false
-}); 
+gui: 'lib/backbone.gui/src/gui'
 ```
 
-### HorizontalSlider
+## using components
 
-a horizontal slider, used for controlling numbers.
-
-- `min` - minimum value (left of slider)
-- `max - maximum value (right of slider)
+gui components are all extended from Backbone views. they all accept a `model` option, which they will bind user input to. most components have a `property` option which defines what model property the input should bind to, and many components have an `options` parameter to define further gui attributes. consider the following model definition for all examples:
 
 ```
-var view = new Backbone.GUI.HorizontalSlider({
-  model: example,
-  property: 'frequency',
-  min: 0,
-  max: 1000
-});
+define 'user', [
+  'backbone'
+], (Backbone) ->
+  
+  User = class extends Backbone.Model
+    defaults:
+      admin: null
+      username: null
+      age: null
+
+    greet: ->
+      console.log 'hello, ', @get('username')
+
+  new User
+    admin: false
+    username: 'nic'
+    age: 24
 ```
 
-### VerticalSlider
+### Text Input
 
-a vertical slider, used for controlling numbers.
-
-- `min` - minimum value (bottom of slider)
-- `max - maximum value (top of slider)
+for strings.
 
 ```
-var view = new Backbone.GUI.VerticalSlider({
-  model: example,
-  property: 'frequency',
-  min: 0,
-  max: 1000
-});
+define 'user', [
+  'zepto',
+  'user',
+  'gui/text'
+], ($, user, TextView) ->
+
+  username_view = new TextView
+    model: user
+    property: 'username'
+
+  $ ->
+    $body = $('body')
+    $body.append username_view.render().el
 ```
 
-### Knob
+### Range Input
 
-essentially a round slider,, used for controlling numbers.
-
-- `min` - minimum value (bottom of slider)
-- `max - maximum value (top of slider)
-- `rotate` - maximum rotation angle
+for integers. additionally accepts `min`, `max`, and `step` options for input attributes.
 
 ```
-var view = new Backbone.GUI.Knob({
-  model: example,
-  property: 'frequency',
-  min: 0,
-  max: 1000
-});
+age_view = new RangeView
+  model: user
+  property: 'age'
+  min: 0
+  max: 150
 ```
 
-### Dropdown
+### Select Dropdown
 
-a dropdown menu, used for setting string properties.
-
-- `options` - array of values for the dropdown
+for strings. accepts an `options` array for possible dropdown values.
 
 ```
-var view = new Backbone.GUI.Dropdown({
-  model: example,
-  property: 'shape',
-  options: ['Sine', 'Square', 'Saw']
-});
+username_view = new SelectView
+  model: user
+  property: 'username'
+  options: ['catshirt', 'nic', 'cool-guy-247']
 ```
 
-### RadioButtons
+### Checkbox Input
 
-a radio buttons menu, used for setting string properties.
-
-- `options` - array of values for the radio buttons
+for booleans.
 
 ```
-var view = new Backbone.GUI.RadioButtons({
-  model: example,
-  property: 'shape',
-  options: ['Sine', 'Square', 'Saw']
-});
+admin_view = new CheckboxView
+  model: user
+  property: 'admin'
 ```
 
-### TextInput
+### Button
 
-a simple unrestricted text input used for setting strings.
-
-```
-var view = new Backbone.GUI.TextInput({
-  model: example,
-  property: 'shape'
-});
-```
-
-### TriggerButton
-
-a button who toggles a boolean value, or executes a function, only once each time it's pressed.
-
-- `label` - a text label for the button
-- `action` - instead of passing a `property` option, TriggerButton will accept an arbitrary function to execute. alternatively, `action` can be a string, representing the name of the property of the model which is a function.
+for instance methods. unlike other components, this does not accept a `property` and instead accepts a `method`, which is the name of an instance method to trigger.
 
 ```
-var view = new Backbone.GUI.TriggerButton({
-  model: example,
-  property: 'on'
-});  
-```
-
-```
-var view = new Backbone.GUI.TriggerButton({
-  label: 'log',
-  action: function() {
-    console.log('i will log whenever i am clicked');
-  }
-});
-```
-
-### HoldButton
-
-a button who toggles a boolean value, or executes a function, only while it is held down.
-
-- `label` - a text label for the button
-- `action` - instead of passing a `property` option, HoldButton will accept an arbitrary function to execute. alternatively, `action` can be a string, representing the name of the property of the model which is a function.
-
-```
-var view = new Backbone.GUI.HoldButton({
-  model: example,
-  property: 'on'
-});  
-```
-
-```
-var view = new Backbone.GUI.HoldButton({
-  label: 'log',
-  action: function() {
-    console.log('i will log repeatedly while i am pressed');
-  }
-});
-```
-
-### View
-
-a high level component who only accepts two options: `model` and `gui`. this component will render a combination of sliders, inputs, and buttons, inferred by the attributes of your model.
-
-- `model` - a model who's attributes you'd like gui-fied
-- `gui` - a custom configuration to override the inferred defaults (optional)
-
-```
-var view = new Backbone.GUI.View({
-  model: example,
-  gui: {
-    frequency: {
-      min: 0,
-      max: 1000
-    },
-    shape: {
-      component: 'Dropdown',
-      options: ['Sine', 'Saw', 'Square']
-    }
-  }
-});
-```
-
-## building documentation
-
-[formatted documentation](http://catshirt.github.com/backbone.gui) is available and can be built using groc:
-
-```
-npm install -g groc
-groc js/**/*.js readme.md
+greet_view = new ButtonView
+  model: user
+  method: 'greet'
 ```
