@@ -1,7 +1,6 @@
 define [
-  'zepto',
   './component'
-], ($, Component) ->
+], (Component) ->
 
   class extends Component
 
@@ -14,12 +13,11 @@ define [
       defaultVal = @model.get(@options.property)
       @$el.empty()
       for name in options
-        $option = $('<option />')
-        $option
-          .text(name)
-          .val(name)
-          .appendTo(@$el)
+        option = document.createElement('option')
+        option.innerHTML = name
+        option.setAttribute('value', name)
+        @$el.append option
         if name is defaultVal
-          $option.prop 'selected', true
+          option.selected = true
 
       Component::render.apply @, arguments
